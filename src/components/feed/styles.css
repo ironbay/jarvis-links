@@ -31,8 +31,9 @@
 }
 
 .feed-frame {
+	display: none;
 	position: relative;
-	max-width: 480px;
+	width: 480px;
 	margin: 0.5rem 0;
 }
 
@@ -40,4 +41,10 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
+}
+
+@media screen and (min-width: 720px) {
+	.feed-frame {
+		display: block;
+	}
 }

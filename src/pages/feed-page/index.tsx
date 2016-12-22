@@ -36,17 +36,22 @@ export default class FeedPage extends Component<IProps, any> {
 						.map(item => {
 							const graph = item.graph || {}
 							return (
-								<a href={item.url} target='_blank'>
-									<Feed.Row>
+									<Feed.Row key={item.key}>
 										<Feed.Image src={graph.image} />
 										<Container direction='column'>
-											<Feed.Title>{graph.title || item.url}</Feed.Title>
-											{graph.description && <Feed.Description>{graph.description}</Feed.Description>}
-											<Feed.Highlight>{Moment(item.created).fromNow()}</Feed.Highlight>
-											{this._frame(graph)}
+											<a href={item.url} target='_blank'>
+												<Feed.Title>
+													{graph.title || item.url}
+												</Feed.Title>
+												{graph.description && <Feed.Description>{graph.description}</Feed.Description>}
+												<Feed.Highlight>
+													{graph.site_name && `${graph.site_name} | `}
+													{Moment(item.created).fromNow()}
+												</Feed.Highlight>
+											</a>
+											{this._frame(item)}
 										</Container>
 									</Feed.Row>
-								</a>
 							)
 						})
 					}
@@ -55,10 +60,15 @@ export default class FeedPage extends Component<IProps, any> {
 			</Container>
 		)
 	}
-	private _frame(graph) {
-		switch (graph.type) {
-			case "video":
-				return <Feed.Frame width={graph['video:width']}  height={graph['video:height']} src={graph["video:url"]} />
+	private _frame(item) {
+		const graph = item.graph || {}
+		const twitter = item.twitter || {}
+		switch (true) {
+			case twitter['site'] === 'SoundCloud':
+				twitter.player = twitter.player.replace('visual=true', '')
+				twitter['player:height'] = 166
+			case twitter['player'] !== undefined:
+				return <Feed.Frame width={twitter['player:width']}  height={twitter['player:height']} src={twitter["player"]} />
 		}
 	}
 }
