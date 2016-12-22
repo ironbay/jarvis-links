@@ -43,6 +43,7 @@ export default class FeedPage extends Component<IProps, any> {
 											<Feed.Title>{graph.title || item.url}</Feed.Title>
 											{graph.description && <Feed.Description>{graph.description}</Feed.Description>}
 											<Feed.Highlight>{Moment(item.created).fromNow()}</Feed.Highlight>
+											{this._frame(graph)}
 										</Container>
 									</Feed.Row>
 								</a>
@@ -53,5 +54,11 @@ export default class FeedPage extends Component<IProps, any> {
 				</Container.Wrap>
 			</Container>
 		)
+	}
+	private _frame(graph) {
+		switch (graph.type) {
+			case "video":
+				return <Feed.Frame width={graph['video:width']}  height={graph['video:height']} src={graph["video:url"]} />
+		}
 	}
 }

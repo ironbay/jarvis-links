@@ -27,6 +27,7 @@ export default class Feed extends Component<IProps, IState> {
 	static Title = Title
 	static Description = Description
 	static Highlight = Highlight
+	static Frame = Frame
 }
 
 
@@ -68,5 +69,18 @@ function Highlight(props: IProps) {
 		<Container className='feed-highlight'>
 			{props.children}
 		</Container>
+	)
+}
+
+
+function Frame(props) {
+	const { width, height, src } = props
+	const style = {
+		height: `${height * 480/width}px`,
+	}
+	return (
+		<div style={style} className='feed-frame'>
+			<iframe src={src} />
+		</div>
 	)
 }

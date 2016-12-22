@@ -6,7 +6,8 @@ interface IProps {
 	data: Object
 	label: string
 	path: Array<string>
-	onEdit: (path: Array<string>, value: any) => void
+	onMerge: (path: Array<string>, value: any) => void
+	onDelete: (path: Array<string>) => void
 }
 
 interface IState {
@@ -15,34 +16,43 @@ interface IState {
 
 export default class Node extends Component<IProps, IState> {
 
-	constructor() {
+	constructor(props: IProps) {
 		super()
 		this.state = {
-			hidden: false
+			hidden: props.path.length > 2
 		}
 	}
 	render() {
-		const { data, label, path, onEdit } = this.props
+		const { data, label, path } = this.props
 		const { hidden } = this.state
 		const count = Object.keys(data).length
 		return (
 			<div className='node'>
-				<span onClick={() => this.toggle(hidden)} className='node-label'>"{label}": {'{'}</span>
+				<span className='node-label'>
+					<span onClick={() => this.toggle(hidden)} className={`node-arrow ${hidden && 'rotate'}`} />
+					<span onClick={() => this._delete(path)} className='node-pointer'>"{label}": {'{'}</span>
+				</span>
 				{
 					!hidden && count > 0 && (
 						<div className='node-children'>
 							{
-								Object.keys(data).map(key => {
+								Object
+								.keys(data)
+								.sort((a, b) => a > b ? 1 : -1)
+								.map(key => {
 									const value = data[key]
 									if (value === Object(value))
 										return (
-											<Node onEdit={onEdit} path={[...path, key]} label={key} data={value} />
+											<Node {...this.props} path={[...path, key]} label={key} data={value} />
 										)
+									const full = [...path, key]
 									return (
 										<div className='node-field'>
-											<span className='node-key'>{JSON.stringify(key)}: </span>
 											<span
-												onClick={() => this.edit([...path, key], value)}
+												onClick={() => this._delete(full)}
+												className='node-key'>{JSON.stringify(key)}: </span>
+											<span
+												onClick={() => this._merge(full, value)}
 												className={`node-value ${typeof(value)}`}>
 												{JSON.stringify(value)}
 											</span>
@@ -65,9 +75,9 @@ export default class Node extends Component<IProps, IState> {
 			hidden: !val,
 		})
 	}
-	edit(path: Array<string>, value: any) {
-		const { onEdit } = this.props
-		if (!onEdit)
+	_merge(path: Array<string>, value: any) {
+		const { onMerge } = this.props
+		if (!onMerge)
 			return
 		const next = prompt(`Edit ${path.join('.')}`, value)
 		if (!next)
@@ -77,6 +87,12 @@ export default class Node extends Component<IProps, IState> {
 			parsed = JSON.parse(next)
 		} catch (e) {
 		}
-		onEdit(path, parsed)
+		onMerge(path, parsed)
+	}
+	private _delete = (path: Array<string>) => {
+		const result = confirm(`Are you sure you want to delete ${path.join('.')}`)
+		if (!result)
+			return
+		this.props.onDelete(path)
 	}
 }

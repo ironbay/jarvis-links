@@ -17,11 +17,16 @@ export default class ExamplePage extends Component<IProps, any> {
 	}
 	render() {
 		const { delta } = this.props
-		return <Node onEdit={this.edit} label='data' path={[]} data={delta.store.get([])} />
+		return <Node onDelete={this._delete} onMerge={this._edit} label='data' path={[]} data={delta.store.get([])} />
 	}
-	edit = (path: Array<string>, value: any) => {
+	private _edit = (path: Array<string>, value: any) => {
 		this.props.delta.mutation({
 			$merge: Dynamic.put({}, path, value)
+		})
+	}
+	private _delete = (path: Array<string>) => {
+		this.props.delta.mutation({
+			$delete: Dynamic.put({}, path, 1)
 		})
 	}
 }

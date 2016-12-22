@@ -1,0 +1,57 @@
+.node {
+	font-family: monospace;
+	line-height: 1.2rem;
+}
+.node-children {
+	margin-left: 2rem;
+}
+
+.node-value {
+	cursor: pointer;
+}
+
+.node-value.number {
+	font-weight: bold;
+    color: #1A01CC;
+}
+
+.node-value.string {
+    color: #0B7500;
+}
+
+.node-value.boolean {
+	font-weight: bold;
+    color: #1A01CC;
+}
+
+.node-label {
+    margin-left: -16px;
+}
+
+.node-arrow {
+	cursor: pointer;
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAD1JREFUeNpiYGBgOADE%2F3Hgw0DM4IRHgSsDFOzFInmMAQnY49ONzZRjDFiADT7dMLALiE8y4AGW6LoBAgwAuIkf%2F%2FB7O9sAAAAASUVORK5CYII%3D");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	display: block;
+	width: 8px;
+    height: 8px;
+	display: inline-block;
+	content: ' ';
+	margin-right: 0.5rem;
+	opacity: 0.35;
+	position: relative;
+}
+
+.node-arrow.rotate {
+    transform: rotate(-90deg);
+}
+
+.node-pointer {
+	cursor: pointer;
+}
+
+.node-key {
+	cursor: pointer;
+}
