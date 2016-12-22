@@ -17,8 +17,8 @@ export default class Container extends Component<any, IState> {
 		const { direction, stretch, styles, ...rest } = this.props
 		const style = {
 			display: 'flex',
-			direction: direction || 'row',
-			flexGrow: stretch,
+			flexDirection: direction || 'row',
+			flexGrow: stretch && 1,
 			...styles,
 		}
 		return (
@@ -26,4 +26,9 @@ export default class Container extends Component<any, IState> {
 			</div>
 		)
 	}
+	static Wrap = Wrap
+}
+
+function Wrap({ children, ...rest }) {
+	return <div {...rest} className='container-wrap' >{children}</div>
 }

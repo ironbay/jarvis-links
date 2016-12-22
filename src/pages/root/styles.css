@@ -1,3 +1,8 @@
-pre {
-	font-size: 1rem;
+.root {
+	font-family:'Varela Round', sans-serif;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
 }

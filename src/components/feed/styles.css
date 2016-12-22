@@ -1,0 +1,31 @@
+.feed-row {
+	margin-bottom: 1.5rem;
+}
+
+.feed-image {
+	flex: 0 0 6rem;
+	height: 4rem;
+	background-size: cover;
+	background-position: center;
+	margin-right: 1rem;
+    background-color: black;
+    border-radius: 0.25rem;
+}
+
+.feed-title {
+	font-size: 1.1rem;
+	line-height: 1.25rem;
+	color: #34495e;
+}
+
+.feed-description {
+	color: #7f8c8d;
+	font-size: 0.9rem;
+	line-height: 1.25rem;
+}
+
+.feed-highlight {
+	color: #3498db;
+	line-height: 1.25rem;
+	font-size: 0.85rem;
+}
