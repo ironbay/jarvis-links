@@ -50,25 +50,25 @@ function Image(props) {
 
 function Title(props: IProps) {
 	return (
-		<Container className='feed-title'>
+		<div className='feed-title'>
 			{props.children}
-		</Container>
+		</div>
 	)
 }
 
 function Description(props: IProps) {
 	return (
-		<Container className='feed-description'>
+		<div className='feed-description'>
 			{props.children}
-		</Container>
+		</div>
 	)
 }
 
 function Highlight(props: IProps) {
 	return (
-		<Container className='feed-highlight'>
+		<div className='feed-highlight'>
 			{props.children}
-		</Container>
+		</div>
 	)
 }
 

@@ -1,4 +1,10 @@
 .feed-page {
 	width: 100%;
-	padding-top: 6rem;
+	padding-top: 2rem;
+}
+
+@media screen and (min-width: 480px) {
+	.container-wrap {
+		padding-top: 6rem;
+	}
 }

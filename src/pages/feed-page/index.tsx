@@ -43,13 +43,12 @@ export default class FeedPage extends Component<IProps, any> {
 												<Feed.Title>
 													{graph.title || item.url}
 												</Feed.Title>
-												{graph.description && <Feed.Description>{graph.description}</Feed.Description>}
+												{graph.description &&  <Feed.Description>{graph.description}</Feed.Description>}
 												<Feed.Highlight>
 													{graph.site_name && `${graph.site_name} | `}
 													{Moment(item.created).fromNow()}
 												</Feed.Highlight>
 											</a>
-											{this._frame(item)}
 										</Container>
 									</Feed.Row>
 							)

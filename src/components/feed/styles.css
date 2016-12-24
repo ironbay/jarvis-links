@@ -16,6 +16,7 @@
 	font-size: 1.1rem;
 	line-height: 1.25rem;
 	color: #34495e;
+    word-break: break-word;
 }
 
 .feed-description {
