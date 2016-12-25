@@ -9,7 +9,11 @@ export function bind(delta: Delta) {
 		if (data.status !== 'ready')
 			return
 
-		delta.query_path(['link:shares'])
+		delta.query({
+			'link:shares': {
+				limit: 25
+			}
+		})
 		const token = localStorage.getItem('token')
 		if (!token) return
 		await delta.upgrade(token)
