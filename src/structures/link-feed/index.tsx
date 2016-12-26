@@ -1,3 +1,4 @@
+import Delta from "../../data/delta";
 import './styles.css'
 import * as createElement from 'inferno-create-element'
 import * as Component from 'inferno-component'
@@ -6,7 +7,8 @@ import Container from '../../components/container'
 import Feed from '../../components/feed'
 
 interface IProps {
-	items: Array<IItem>
+	urls: Array<string>
+	delta: Delta
 }
 
 interface IState {
@@ -39,12 +41,15 @@ export default class Template extends Component<IProps, IState> {
 		super()
 	}
 	render() {
-		const { items } = this.props
+		const { urls, delta } = this.props
 		return (
 			<Feed>
 			{
-				items
-				.map((item: IItem) => {
+				urls
+				.map((url: string) => {
+					const item: IItem = delta.store.get(['link:info', url])
+					if (!item)
+						return false
 					const graph: IGraph = item.graph || {}
 					const twitter: ITwitter = item.twitter || {}
 					return (

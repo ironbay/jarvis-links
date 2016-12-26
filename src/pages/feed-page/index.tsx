@@ -35,7 +35,7 @@ export default class FeedPage extends Component<IProps, IState> {
 	private _max: string
 	render() {
 		const { delta } = this.props
-		const items: Object = delta.store.get(['link:shares']) || {}
+		const items: Object = delta.store.get(['context:links', 'slack:strange-loop']) || {}
 		const sorted =
 			Object
 			.keys(items)
@@ -43,10 +43,13 @@ export default class FeedPage extends Component<IProps, IState> {
 			.sort((a, b) => {
 				return a.key < b.key ? -1 : 1
 			})
+		if (sorted.length === 0)
+			return false
+		this._max = sorted.slice(-1)[0].key
 		return (
 			<Container className='feed-page'>
 				<Container.Wrap>
-					<LinkFeed items={sorted} />
+					<LinkFeed urls={sorted.map(item => item.url)} delta={this.props.delta} />
 				</Container.Wrap>
 			</Container>
 		)
@@ -58,7 +61,7 @@ export default class FeedPage extends Component<IProps, IState> {
 			pending: true
 		})
 		await this.props.delta.query({
-			'link:shares': {
+			'context:links': {
 				min: max,
 				limit: 25,
 			}
