@@ -69,6 +69,9 @@ export default class LinkFeed extends Component<IProps, IState> {
 							'name'
 						])
 
+					if (context.channel && !channel)
+						return false
+
 					const sender =
 						delta.store.get([
 							'context:info',
