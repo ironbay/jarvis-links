@@ -23,6 +23,7 @@
 	color: #7f8c8d;
 	font-size: 0.9rem;
 	line-height: 1.25rem;
+    word-break: break-word;
 }
 
 .feed-highlight {

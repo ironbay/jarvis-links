@@ -62,8 +62,10 @@ export default class FeedPage extends Component<IProps, IState> {
 		})
 		await this.props.delta.query({
 			'context:links': {
-				min: max,
-				limit: 25,
+				'slack:strange-loop': {
+					min: max,
+					limit: 25,
+				}
 			}
 		})
 		this.setState({

@@ -16,10 +16,10 @@ export function bind(delta: Delta) {
 				}
 			}
 		})
-		const token = localStorage.getItem('token')
-		if (!token) return
-		await delta.upgrade(token)
-		await delta.subscribe()
+		// const token = localStorage.getItem('token')
+		// if (!token) return
+		// await delta.upgrade(token)
+		// await delta.subscribe()
 
 	})
 
@@ -28,8 +28,8 @@ export function bind(delta: Delta) {
 		const key = data['key']
 	})
 
-	delta.store.intercept(['context:links', '+'], data => {
-		delta.query({
+	delta.store.intercept(['context:links', '+'], async data => {
+		await delta.query({
 			'link:info':
 				Object
 				.keys(data)

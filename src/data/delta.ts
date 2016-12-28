@@ -134,7 +134,7 @@ export default class Delta {
 			query,
 			1,
 		)
-		this.store.apply(result)
+		await this.store.apply(result)
 		this.store.apply({
 			$delete: {
 				pending: pending,

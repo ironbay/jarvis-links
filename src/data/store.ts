@@ -19,16 +19,18 @@ export default class Store {
 		return this.apply(Dynamic.put({}, ["$merge", ...path], value))
 	}
 
-	public apply(mut: Mutation) {
-		this.delete(this._data, mut.$delete || {})
-		this.merge(this._data, mut.$merge || {})
+	public async apply(mut: Mutation) {
+		await this.delete(this._data, mut.$delete || {})
+		await this.merge(this._data, mut.$merge || {})
 		if (this._changed)
 			this._changed()
 		console.log(this._data)
 	}
 
-	private merge(left: Object, right: Object, ...path: Array<string>) {
-		this._interceptors.find(path).forEach(cb => cb(right, path))
+	private async merge(left: Object, right: Object, ...path: Array<string>) {
+		for (let cb of this._interceptors.find(path)) {
+			await cb(right, path)
+		}
 		for (let key in right) {
 			const value = right[key]
 			if (value && value.constructor && value.constructor === Object) {
