@@ -49,7 +49,7 @@ export default class FeedPage extends Component<IProps, IState> {
 		return (
 			<Container className='feed-page'>
 				<Container.Wrap>
-					<LinkFeed urls={sorted.map(item => item.url)} delta={this.props.delta} />
+					<LinkFeed entries={sorted.map(item => item)} delta={this.props.delta} />
 				</Container.Wrap>
 			</Container>
 		)

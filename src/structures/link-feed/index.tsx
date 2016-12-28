@@ -7,7 +7,7 @@ import Container from '../../components/container'
 import Feed from '../../components/feed'
 
 interface IProps {
-	urls: Array<string>
+	entries: Array<IEntry>
 	delta: Delta
 }
 
@@ -15,12 +15,22 @@ interface IState {
 
 }
 
-interface IItem {
+interface IEntry {
+	url: string
+	created: number
+	context: IContext
+}
+
+interface ILink {
 	key: string,
 	graph: IGraph
 	twitter: ITwitter
 	url: string
-	created: number
+}
+
+interface IContext {
+	channel: string,
+	sender: string
 }
 
 interface IGraph {
@@ -36,34 +46,55 @@ interface ITwitter {
 	description?: string
 }
 
-export default class Template extends Component<IProps, IState> {
+export default class LinkFeed extends Component<IProps, IState> {
 	constructor() {
 		super()
 	}
 	render() {
-		const { urls, delta } = this.props
+		const { entries, delta } = this.props
 		return (
 			<Feed>
 			{
-				urls
-				.map((url: string) => {
-					const item: IItem = delta.store.get(['link:info', url])
-					if (!item)
+				entries
+				.map(entry => {
+					const link: ILink = delta.store.get(['link:info', entry.url])
+					const context: IContext = entry.context || {sender: '', channel: ''}
+
+					const channel =
+						delta.store.get([
+							'context:info',
+							'slack:strange-loop',
+							'channel',
+							context.channel,
+							'name'
+						])
+
+					const sender =
+						delta.store.get([
+							'context:info',
+							'slack:strange-loop',
+							'user',
+							context.sender,
+							'name'
+						])
+					if (!link)
 						return false
-					const graph: IGraph = item.graph || {}
-					const twitter: ITwitter = item.twitter || {}
+					const graph: IGraph = link.graph || {}
+					const twitter: ITwitter = link.twitter || {}
 					return (
-							<Feed.Row key={item.key}>
+							<Feed.Row key={link.key}>
 								<Feed.Image src={graph.image || twitter.image} />
 								<Container direction='column'>
-									<a href={item.url} target='_blank'>
+									<a href={link.url} target='_blank'>
 										<Feed.Title>
-											{graph.title || twitter.title || item.url}
+											{graph.title || twitter.title || link.url}
 										</Feed.Title>
 										<Feed.Description>{graph.description || twitter.description}</Feed.Description>
 										<Feed.Highlight>
 											{graph.site_name && `${graph.site_name} | `}
-											{Moment(item.created).fromNow()}
+											{Moment(entry.created).fromNow()}
+											{channel && ` in #${channel}`}
+											{sender && ` by ${sender}`}
 										</Feed.Highlight>
 									</a>
 								</Container>

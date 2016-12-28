@@ -8,12 +8,14 @@ export function bind(delta: Delta) {
 	delta.store.intercept(['connection'], async data => {
 		if (data.status !== 'ready')
 			return
-
 		delta.query({
 			'context:links': {
 				'slack:strange-loop': {
 					limit: 25
 				}
+			},
+			'context:info': {
+				'slack:strange-loop': {}
 			}
 		})
 		// const token = localStorage.getItem('token')
