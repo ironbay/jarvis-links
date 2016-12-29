@@ -38,7 +38,7 @@ export default class Node extends Component<IProps, IState> {
 							{
 								Object
 								.keys(data)
-								.sort((a, b) => a > b ? 1 : -1)
+								.sort((a, b) => data[b] > data[a] ? 1 : -1)
 								.map(key => {
 									const value = data[key]
 									if (value === Object(value))

@@ -28,6 +28,7 @@ export default class FeedPage extends Component<IProps, IState> {
 				this._next(this._max)
 			}
 		}
+		this._next('')
 	}
 	componentDidUnmount() {
 		window.onscroll = undefined
@@ -54,7 +55,7 @@ export default class FeedPage extends Component<IProps, IState> {
 			</Container>
 		)
 	}
-	private async _next(max) {
+	private async _next(min) {
 		if (this.state.pending)
 			return
 		this.setState({
@@ -63,7 +64,7 @@ export default class FeedPage extends Component<IProps, IState> {
 		await this.props.delta.query({
 			'context:links': {
 				'slack:strange-loop': {
-					min: max,
+					min: min,
 					limit: 25,
 				}
 			}

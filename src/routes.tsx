@@ -8,6 +8,7 @@ export const history = browserHistory
 import Root from './pages/root'
 import ExamplePage from './pages/example-page'
 import FeedPage from './pages/feed-page'
+import EloPage from './pages/elo-page'
 
 
 export const routes = (
@@ -15,6 +16,7 @@ export const routes = (
 		<Route path='/' component={Root}>
 			<Route path='/' component={FeedPage} />
 			<Route path='/debug' component={ExamplePage} />
+			<Route path='/elo' component={EloPage} />
 		</Route>
 	</Router>
 )

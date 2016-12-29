@@ -9,14 +9,12 @@ export function bind(delta: Delta) {
 		if (data.status !== 'ready')
 			return
 		delta.query({
-			'context:links': {
-				'slack:strange-loop': {
-					limit: 25
-				}
-			},
 			'context:info': {
 				'slack:strange-loop': {}
-			}
+			},
+			'tv:elo': {
+			},
+			'tv:options': {}
 		})
 		// const token = localStorage.getItem('token')
 		// if (!token) return
