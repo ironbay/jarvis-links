@@ -22,59 +22,6 @@ export default class EloPage extends Component<IProps, IState> {
 		}
 	}
 	async componentDidMount() {
-		await this.props.delta.mutation({
-			$merge: {
-				'tv:options': {
-					'breaking-bad': 1,
-					'sopranos': 1,
-					'westworld': 1,
-					'westwing': 1,
-					'game-of-thrones': 1,
-					'atlanta': 1,
-					'stranger-things': 1,
-					'mad-men': 1,
-					'man-in-high-castle': 1,
-					'the-wire': 1,
-					'veep': 1,
-					'curb-your-enthusiasm': 1,
-					'big-bang-theory': 1,
-					'doctor-who': 1,
-					'the-americans': 1,
-					'the-office': 1,
-					'parks-and-recreation': 1,
-					'arrested-development': 1,
-					'house-of-cards': 1,
-					'party-down': 1,
-					'green-wing': 1,
-					'sherlock': 1,
-					'house': 1,
-					'veronica-mars': 1,
-					'black-mirror': 1,
-					'law-and-order': 1,
-					'star-trek': 1,
-					'true-detective': 1,
-					'broad-city': 1,
-					'homeland': 1,
-					'entourage': 1,
-					'agents-of-shield': 1,
-					'daredevil': 1,
-					'jessica-jones': 1,
-					'luke-cage': 1,
-					'planet-earth': 1,
-					'band-of-brothers': 1,
-					'futurama': 1,
-					'rick-and-morty': 1,
-					'family-guy': 1,
-					'simpsons': 1,
-					'legend-of-korra': 1,
-					'last-airbender': 1,
-					'bojack-horseman': 1,
-					'wilfred': 1,
-					'californication': 1,
-					'the-oa': 1,
-				}
-			}
-		})
 		await this.props.delta.query({
 			'tv:elo': {}
 		})
@@ -108,7 +55,6 @@ export default class EloPage extends Component<IProps, IState> {
 	private _choose = (winner: string) => {
 		const { delta } = this.props
 		const { me, options } = this.state
-		const loser = options.filter(i => i !== winner)[0]
 		this._user(delta, me, options, winner)
 		this._user(delta, 'global', options, winner)
 		this._next()
